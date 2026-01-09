@@ -58,6 +58,10 @@ if (isset($_POST['agregar'])) {
                 echo "<tr>";
                 echo "<td>" . $row['id'] . "</td>";
                 echo "<td>" . $row['nombre'] . "</td>";
+                echo "<td>
+                        <a href='editar.php?id=" . $row['id'] . "'>Editar</a> | 
+                        <a href='borrar.php?id=" . $row['id'] . "'>Eliminar</a>
+                    </td>";
                 echo "</tr>";
             }
             ?>
