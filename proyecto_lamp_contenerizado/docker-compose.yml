@@ -1,0 +1,39 @@
+services:
+  # Servidor Web Nginx
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+  # Procesador PHP
+  php:
+    image: php:8.2-fpm
+    environment:
+      # Pasamos las variables al sistema operativo del contenedor PHP
+      MYSQL_DATABASE: proyecto_lamp
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: "1234"
+    volumes:
+      - ./src:/var/www/html
+    # Instalamos la extensión necesaria para MySQL
+    command: >
+      sh -c "docker-php-ext-install mysqli && php-fpm"
+
+  # Base de Datos
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: Megamanzero
+      MYSQL_DATABASE: proyecto_lamp
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: "1234"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db-init:/docker-entrypoint-initdb.d # <-- Agrega esta línea
+volumes:
+  db_data:
