@@ -3,6 +3,11 @@
 // La comunicación es exclusivamente por HTTP.
 
 $api_url = "http://localhost/proyecto_lamp_desacoplado/src/faseA/api/personas.php";
+//$api_url = "http:/localhost/proyecto_lamp_desacoplado/src/faseA/api/personas.php";
+//$api_url = "http:/127.0.0.1/proyecto_lamp_desacoplado/src/faseA/api/personas.php";
+//$api_url = "http://127.0.0.1:80/proyecto_lamp_desacoplado/src/faseA/api/personas.php";
+//$api_url = "http://" . $_SERVER['HTTP_HOST'] . "/proyecto_lamp_desacoplado/src/faseA/api/personas.php";
+
 
 // Función para centralizar las peticiones cURL
 function consumir_api($url, $metodo, $datos = null) {
@@ -16,6 +21,17 @@ function consumir_api($url, $metodo, $datos = null) {
     }
     
     $respuesta = curl_exec($ch);
+
+    // --- AGREGA ESTO PARA DEPURAR ---
+    if ($respuesta === false) {
+        echo "<pre>Error de cURL: " . curl_error($ch) . "</pre>";
+    }
+    $codigo_http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    if ($codigo_http !== 200) {
+        echo "<pre>Código de respuesta API: " . $codigo_http . "</pre>";
+    }
+    // --------------------------------
+
     curl_close($ch);
     return json_decode($respuesta, true);
 }
