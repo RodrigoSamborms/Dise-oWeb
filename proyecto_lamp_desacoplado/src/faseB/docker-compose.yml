@@ -16,6 +16,10 @@ services:
   api_php:
     image: php:8.2-fpm
     container_name: api_php
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: "1234"
+      MYSQL_DATABASE: proyecto_lamp
     volumes:
       - ./api:/var/www/html
     command: >
@@ -38,6 +42,10 @@ services:
   web_php:
     image: php:8.2-fpm
     container_name: web_php
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: "1234"
+      MYSQL_DATABASE: proyecto_lamp
     volumes:
       - ./web:/var/www/html
     command: >
