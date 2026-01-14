@@ -3,7 +3,8 @@
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-    $api_url = "http://[::1]/proyecto_lamp_desacoplado/src/faseA/api/personas.php?id=" . $id;
+    //$api_url = "http://[::1]/proyecto_lamp_desacoplado/src/faseA/api/personas.php?id=" . $id;
+    $api_url = "http://api_web/personas.php?id=" . $id;
 
     $ch = curl_init($api_url);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE"); // Especificamos que es un borrado

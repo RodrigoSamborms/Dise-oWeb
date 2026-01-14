@@ -53,7 +53,8 @@ switch($metodo) {
         break;
         
         
-        case 'PUT':
+    // En personas.php - Caso PUT
+    case 'PUT':
         $json = file_get_contents('php://input');
         $datos = json_decode($json, true);
         
@@ -65,7 +66,7 @@ switch($metodo) {
             if (mysqli_query($conn, $sql)) {
                 echo json_encode(["status" => "updated"]);
             } else {
-                http_response_code(500);
+                http_response_code(500); // Esto ayuda al cliente cURL a detectar fallos
                 echo json_encode(["error" => "Error al actualizar"]);
             }
         }

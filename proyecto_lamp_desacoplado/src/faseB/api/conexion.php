@@ -1,9 +1,9 @@
 <?php
 // Configuración de las credenciales
-$host = "localhost";
-$user = "admin";      // El usuario que creamos
-$pass = "1234"; // La contraseña que asignaste
-$db   = "proyecto_lamp";       // El nombre de la base de datos
+$host = "db"; //antes "localhost";//IP del servidor de base de datos
+$user = getenv('MYSQL_USER');      // El usuario que creamos
+$pass = getenv('MYSQL_PASSWORD'); // La contraseña que asignaste
+$db   = getenv('MYSQL_DATABASE'); // El nombre de la base de datos
 
 // Crear la conexión usando la extensión mysqli
 $conn = mysqli_connect($host, $user, $pass, $db);
